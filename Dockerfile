@@ -6,11 +6,11 @@ WORKDIR /app
 RUN apk add --no-cache \
     curl zip unzip git bash \
     nodejs npm \
-    mysql-client \
+    postgresql-client \
     oniguruma-dev
-# Extensions PHP
-RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath
 
+# Extensions PHP
+RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring bcmath
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -33,6 +33,6 @@ RUN composer dump-autoload --optimize \
  && chmod -R 775 storage bootstrap/cache \
  && mkdir -p storage/logs storage/framework/{sessions,views,cache}
 
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["bash", "start.sh"]
