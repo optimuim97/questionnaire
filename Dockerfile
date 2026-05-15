@@ -6,10 +6,11 @@ WORKDIR /app
 RUN apk add --no-cache \
     curl zip unzip git bash \
     nodejs npm \
-    mysql-client
-
+    mysql-client \
+    oniguruma-dev
 # Extensions PHP
-RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath tokenizer fileinfo
+RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath
+
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
