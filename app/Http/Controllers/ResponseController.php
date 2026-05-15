@@ -19,7 +19,7 @@ class ResponseController extends Controller
             'respondent_email' => 'nullable|email|max:255',
             'answers'          => 'required|array',
             'answers.*.question_id' => 'required|exists:questions,id',
-            'answers.*.value'       => 'required',
+            'answers.*.value'       => 'nullable',
         ]);
 
         $response = Response::create([
@@ -29,10 +29,17 @@ class ResponseController extends Controller
         ]);
 
         foreach ($data['answers'] as $answerData) {
+            $value = $answerData['value'] ?? null;
+
+            // Skip empty optional answers
+            if ($value === null || $value === '' || $value === []) {
+                continue;
+            }
+
             Answer::create([
                 'response_id' => $response->id,
                 'question_id' => $answerData['question_id'],
-                'value'       => is_array($answerData['value']) ? $answerData['value'] : [$answerData['value']],
+                'value'       => is_array($value) ? $value : [$value],
             ]);
         }
 
