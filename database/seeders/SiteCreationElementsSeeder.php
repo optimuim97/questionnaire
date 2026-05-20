@@ -10,7 +10,7 @@ class SiteCreationElementsSeeder extends Seeder
 {
     public function run(): void
     {
-        if (Questionnaire::where('title', 'Demande des éléments pour la création du site')->exists()) {
+        if (Questionnaire::query()->where('title', '=', 'Demande des éléments pour la création du site')->exists()) {
             $this->command->info('✓ Questionnaire éléments site déjà présent, skip.');
             return;
         }
@@ -94,23 +94,19 @@ class SiteCreationElementsSeeder extends Seeder
 
             // ── 3. IDENTITÉ VISUELLE ────────────────────────────────────────
             [
-                'title'       => 'Votre logo est-il disponible dans les formats suivants ?',
-                'explanation' => 'Cochez les formats que vous possédez déjà.',
+                'title'       => 'Envoyez votre logo (SVG, PNG fond transparent ou haute résolution)',
+                'explanation' => 'Formats acceptés : SVG, PNG, JPG. Privilégiez le SVG ou un PNG fond transparent.',
                 'input_type'  => 'file',
-                'required'    => true
-            ],
-            [
-                'title'       => 'Votre charte couleurs inclut-elle uniquement le rose (#E8336D) et le blanc ?',
-                'explanation' => 'Si vous avez d\'autres couleurs officielles, merci de les préciser dans la question suivante.',
-                'input_type'  => 'radio',
                 'required'    => true,
-                'options'     => [
-                    'Oui, uniquement ces deux couleurs',
-                    'Non, j\'ai des couleurs supplémentaires à préciser',
-                ],
             ],
             [
-                'title'       => 'Si vous avez des couleurs supplémentaires, précisez les codes couleur.',
+                'title'       => 'Quelle est la couleur principale de votre marque ?',
+                'explanation' => 'La couleur par défaut suggérée est #E8336D (rose). Modifiez si nécessaire.',
+                'input_type'  => 'color',
+                'required'    => true,
+            ],
+            [
+                'title'       => 'Avez-vous des couleurs supplémentaires à ajouter à votre charte ?',
                 'explanation' => 'Indiquez les codes HEX, RGB ou Pantone. Ex : Bleu marine #1A2B4C, Doré #C9A84C…',
                 'input_type'  => 'textarea',
                 'required'    => false,
