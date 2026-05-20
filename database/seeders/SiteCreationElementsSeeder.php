@@ -96,14 +96,8 @@ class SiteCreationElementsSeeder extends Seeder
             [
                 'title'       => 'Votre logo est-il disponible dans les formats suivants ?',
                 'explanation' => 'Cochez les formats que vous possédez déjà.',
-                'input_type'  => 'checkbox',
-                'required'    => true,
-                'options'     => [
-                    'SVG (vectoriel)',
-                    'PNG fond transparent',
-                    'Version haute résolution (300 DPI ou plus)',
-                    'Mon logo n\'est pas encore disponible dans ces formats',
-                ],
+                'input_type'  => 'file',
+                'required'    => true
             ],
             [
                 'title'       => 'Votre charte couleurs inclut-elle uniquement le rose (#E8336D) et le blanc ?',

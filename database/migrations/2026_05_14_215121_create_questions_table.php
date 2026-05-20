@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('questionnaire_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('explanation')->nullable();
-            $table->enum('input_type', ['text', 'number', 'email', 'phone', 'date', 'textarea', 'select', 'radio', 'checkbox']);
+            $table->enum('input_type', ['text', 'number', 'email', 'phone', 'date', 'textarea', 'select', 'radio', 'checkbox', 'file', 'color']);
             $table->json('options')->nullable();
             $table->boolean('required')->default(true);
             $table->unsignedInteger('order')->default(0);
